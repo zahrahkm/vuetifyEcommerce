@@ -9,6 +9,8 @@
                             <v-layout row justify-center>
                                 <v-flex lg12 md4 sm5 xs12 class="mb-5" justify-space-around>
                                 <h3 style="text-align: center" class="mb-8">Shopping cart<v-badge :content="cartItemCount" color="pink darken-2" class="ml-3"></v-badge></h3>
+                                    <br>
+                                    <v-btn class="mx-auto" @click="clearCartItems">clear</v-btn>
                                     <v-divider></v-divider>
 
 
@@ -35,9 +37,11 @@
                                                 <v-layout>
                                                     <v-flex lg8>
                                                         <v-btn class="my-3">
-                                                            <v-icon x-small class="mr-3">mdi-plus</v-icon><small>{{item.quantity}}</small><v-icon x-small class="ml-3" >mdi-minus</v-icon>
+                                                            <btn @click="increaseQuantity(item.product)"><v-icon x-small class="mr-3">mdi-plus</v-icon></btn>
+                                                            <small>{{item.quantity}}</small>
+                                                            <btn @click="decreaseQuantity(item.product)"><v-icon x-small class="ml-3" >mdi-minus</v-icon></btn>
                                                         </v-btn>
-                                                        <v-btn icon color="pink" class="ml-2">
+                                                        <v-btn icon color="pink" class="ml-2" @click.prevent="removeProductFromCart(item.product)">
                                                             <v-icon>mdi-delete</v-icon>
                                                         </v-btn>
                                                     </v-flex>
@@ -88,9 +92,25 @@
                     {icon: mdiCheckboxMarkedCircleOutline,title:'warranty'},
                     {icon: mdiStoreOutline, title: 'offer shop'}
                 ],
-                card:[]
 
 
+            }
+
+        },
+
+        methods:{
+            removeProductFromCart(product){
+                this.$store.dispatch('removeProductFromCart',product)
+            },
+            clearCartItems(){
+                 this.$store.dispatch(('clearCartItems'))
+            },
+            increaseQuantity(product){
+                    this.$store.dispatch('increaseQuantity', product)
+                console.log(product)
+            },
+            decreaseQuantity(product){
+                this.$store.dispatch('decreaseQuantity',product)
             }
 
         },

@@ -141,7 +141,7 @@
             addToCart(){
                 this.$store.dispatch('addProductToCart',{
                     product:this.product,
-                        quantity:1
+                    quantity:1
                 })
                 this.$router.replace('/shoppingcart')
             }

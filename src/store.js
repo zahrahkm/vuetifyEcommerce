@@ -305,20 +305,33 @@ export const store=new Vuex.Store({
         },
 
         addProductToCart({commit},{product,quantity}){
-            {commit('ADD_TO_CART',{product,quantity})}
+            commit('ADD_TO_CART',{product,quantity})
             axios.post('http://localhost:3000/cart',{
                 product_id :product.id,
                 quantity
             })
         },
 
-
         getCartItems({commit}){
             axios.get('http://localhost:3000/cart')
                 .then(resp=>{
                     commit('SET_CART',resp.data)
                 })
-        }
+        },
+        removeProductFromCart({commit},product){
+           commit('REMOVE_PRODUCT_FROM_CART' ,product)
+        },
+        clearCartItems({commit}){
+           commit('CLEAR_CART_ITEMS')
+        },
+        increaseQuantity({commit},product){
+            commit('INCREASE_QUANTITY' ,product)
+        },
+        decreaseQuantity({commit},product){
+            commit('DECREASE_QUANTITY' ,product)
+        },
+
+
     },
     mutations: {
         auth_request(state){
@@ -346,7 +359,30 @@ export const store=new Vuex.Store({
         },
         SET_CART(state,cartItems){
             state.cart=cartItems;
-        }
+        },
+        REMOVE_PRODUCT_FROM_CART(state,product){
+            state.cart = state.cart.filter(item=>item.product.id !== product.id)
+        },
+        CLEAR_CART_ITEMS(state){
+            state.cart= [];
+        },
+        INCREASE_QUANTITY(state,product){
+            let productInCart=state.cart.find(item=> item.product.id=== product.id);
+            if(productInCart){
+                productInCart.quantity +=1
+                return;
+            }
+
+
+        },
+        DECREASE_QUANTITY(state,product){
+            let productInCart=state.cart.find(item=> item.product.id=== product.id);
+            if(productInCart && productInCart.quantity>1){
+                productInCart.quantity -=1
+                return;
+            }
+        },
+
 
     },
 
