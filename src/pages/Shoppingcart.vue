@@ -1,6 +1,6 @@
 <template>
     <v-main>
-        <v-container>
+        <v-container v-if="cartItemCount > 0 ">
             <v-layout row wrap justify-center>
 
                 <v-flex xs12 md8 lg8>
@@ -9,8 +9,7 @@
                             <v-layout row justify-center>
                                 <v-flex lg12 md4 sm5 xs12 class="mb-5" justify-space-around>
                                 <h3 style="text-align: center" class="mb-8">Shopping cart<v-badge :content="cartItemCount" color="pink darken-2" class="ml-3"></v-badge></h3>
-                                    <br>
-                                    <v-btn class="mx-auto" @click="clearCartItems">clear</v-btn>
+
                                     <v-divider></v-divider>
 
 
@@ -46,18 +45,20 @@
                                                         </v-btn>
                                                     </v-flex>
                                                     <v-flex lg4>
-                                                        <v-card-text>price: {{item.product.price}}</v-card-text>
+                                                        <v-card-text>price: {{item.product.price * item.quantity}}</v-card-text>
                                                     </v-flex>
                                                 </v-layout>
                                             </v-container>
                                         </v-flex>
                                     </v-layout>
                                     <v-divider></v-divider>
+
                                 </v-card>
 
                            </v-flex>
                         </v-layout>
-                    </v-container>
+                    </v-container> 
+                        <v-btn class="mx-auto" block @click="clearCartItems">clear</v-btn>
                     </v-card>
                 </v-flex>
 
@@ -70,6 +71,13 @@
                     </v-card>
                 </v-flex>
 
+            </v-layout>
+        </v-container>
+        <v-container v-else>
+            <v-layout row justify-center>
+                <v-flex>
+                    <v-img width="500" class="mx-auto" :src="require(`@/assets/emptycart.png`)"></v-img>
+                </v-flex>
             </v-layout>
         </v-container>
     </v-main>

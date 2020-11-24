@@ -20,10 +20,13 @@
                     width="150"
             />
 
-            <v-btn icon class="ml-5">
-                <v-icon class="mdi  mdi-cart-outline "></v-icon>
-            </v-btn>
+            <router-link to="/shoppingcart">
+                <v-btn icon class="ml-5">
+                    <v-icon class="mdi  mdi-cart-outline" ></v-icon>
+                    <v-badge v-if="cartItemCount > 0" :content="cartItemCount" depressed color="pink darken-2" style="margin-right: 10px"></v-badge>
+                </v-btn>
 
+            </router-link>
 
 
 
@@ -69,6 +72,7 @@
 
 <script>
     import {mdiAccount, mdiCartOutline, mdiDelete, mdiShareVariant} from "@mdi/js";
+    import {mapGetters} from "vuex";
 
     export default {
         name: "Navbar",
@@ -99,8 +103,12 @@
                     'pink darken-2',
                     'red lighten-1',
                     'deep-purple accent-4',
-                ],
+                ]
+
             }
+        },
+        computed:{
+            ...mapGetters(['cartItemCount'])
         }
     }
 
@@ -108,5 +116,8 @@
 <style>
     .menuable__content__active{
         width: 120px!important;
+    }
+    a{
+        text-decoration: none;
     }
 </style>
