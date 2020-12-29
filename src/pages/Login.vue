@@ -47,6 +47,7 @@
 
 
 <script>
+    import axios from "axios";
     export default {
         name:'login',
         data(){
@@ -68,13 +69,35 @@
             }
         },
         methods: {
-            login: function () {
+            login(e) {
+                e.preventDefault();
+                axios
+                    .post(
+                        `http://localhost:3000/login`,
+                        JSON.stringify({
+                            email: this.email,
+                            password: this.password,
+                        }),
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${this.token}`,
+                            },
+                        }
+                    )
 
-                let email = this.email
-                let password = this.password
-                this.$store.dispatch('login', { email, password })
-                    .then(() => this.$router.push('/home'))
-                    .catch(err => console.log(err))
+                    .then((response) => {
+                        const user = response.data.user;
+                        const token = response.data.token;
+                        localStorage.setItem("token", token);
+                        localStorage.setItem("user", JSON.stringify(user)); //[object object] error without json.stringify
+
+                        this.$store.dispatch("auth", { user, token });
+                        this.$router.push("/");
+                    })
+                    .catch((error) => {
+                        alert(error.data.msg);
+                    });
             },
             validate () {
                 this.$refs.form.validate()

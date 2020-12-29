@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <!--slider -->
     <v-carousel cycle height="500" hide-delimiter-background show-arrows-on-hover>
         <v-carousel-item v-for="(slide, i) in slides" :key="i">
@@ -21,16 +21,12 @@
     </v-carousel>
 
 
-    <v-main>
+
       <!--boxes -->
-            <v-container>
+            <v-container class="mb-5">
               <v-layout row>
                 <v-flex lg3 md3 sm6 v-for="box in boxes " :key="box.id" justify-center>
-                  <v-card width="200" flat class="mx-auto">
-                    <v-img max-height="120" max-width="120" :src="require(`@/assets/boxes/${box.title}.png`)" class="mx-auto"></v-img>
-                    <v-card-title class="center">{{box.title}}</v-card-title>
-                    <v-card-text class="center">{{box.text}}</v-card-text>
-                  </v-card>
+                    <home-box :box="box"></home-box>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -38,39 +34,49 @@
 
 
 
-      <!--trend products -->
-        <v-container>
-            <v-layout>
-                <v-flex>
+      <!--best products -->
+        <v-container fluid style="background-color: #fafafa;" class="py-8" >
+            <v-container>
+                <v-layout row wrap>
+                    <v-flex lg12 md12 sm12 xs12 class="my-3">
+                        <h2 style="text-align: center">Best products</h2>
+                    </v-flex>
 
-                </v-flex>
-            </v-layout>
+                    <!-- loading-->
+                    <v-flex lg12 v-if="loadingStatus">
+                        <card-loader :loopCount=4 />
+                    </v-flex>
+                    <!-- endloading-->
+
+                    <v-flex v-else v-for="product in bestProducts " :key="product.id"  class="mt-2 mb-2" lg3 md4 sm6>
+                        <product :product="product"></product>
+                    </v-flex>
+                </v-layout>
+            </v-container>
         </v-container>
 
 
-
-      <!--categories -->
+      <!--categoriesImage -->
             <v-container class="py-12">
               <v-layout row justify-center>
                   <v-flex lg6 md6 sm6 xs11>
-                      <v-layout column justify-center>
+                      <v-layout column justify-center >
                           <v-flex lg6 xs4>
-                              <v-img :src="require(`@/assets/1.png`)" height="370" class="mx-3 mb-5"></v-img>
-
+                              <v-img :src="require(`@/assets/1.jpg`)" height="270" class="mx-3 mb-5"></v-img>
                           </v-flex>
                           <v-flex lg6 xs4>
-                              <v-img :src="require(`@/assets/322.png`)" height="260" class="mx-3"></v-img>
+                              <v-img :src="require(`@/assets/322.jpg`)" height="160" class="mx-3 mb-5"></v-img>
                           </v-flex>
                       </v-layout>
                   </v-flex>
                 <v-flex lg6 md6 sm6 xs11>
                   <v-layout column justify-center>
                     <v-flex lg6 xs4>
-                        <v-img :src="require(`@/assets/55.jpg`)" height="300" class="mx-3 mb-5"></v-img>
+                        <v-img :src="require(`@/assets/55.jpg`)" height="200" class="mx-3 mb-5"></v-img>
 
                     </v-flex>
                     <v-flex lg6 xs4>
-                        <v-img :src="require(`@/assets/11.png`)" height="330" class="mx-3"></v-img>
+                        <v-img :src="require(`@/assets/11.png`)" height="230" class="mx-3"></v-img>
                     </v-flex>
                   </v-layout>
                 </v-flex>
@@ -80,26 +86,62 @@
 
 
       <!--products -->
-            <v-container>
-              <v-layout row wrap>
-                <v-flex v-for="product in allproducts " :key="product.id"  class="mt-2 mb-2" lg3 md4 sm6>
+
+            <v-container fluid class="py-5" style="background-color: #fafafa;">
+                <v-container>
+                     <v-layout row wrap justify-center>
+                  <v-flex lg12 md12 sm12 xs12 class="my-5">
+                      <h2 style="text-align: center">Trend in this month</h2>
+                  </v-flex>
+
+                  <!-- loading-->
+                  <v-flex lg12 v-if="loadingStatus">
+                      <card-loader :loopCount=4 />
+                  </v-flex>
+                  <!-- endloading-->
+
+                <v-flex v-else v-for="product in trend " :key="product.id"  class="mt-2 mb-2" lg3 md4 sm6>
                   <product :product="product"></product>
                 </v-flex>
+                  <v-flex lg12 md12 sm12 xs12  style="text-align: center" class=" my-4">
+                      <v-btn router to="/products">see more</v-btn>
+                  </v-flex>
               </v-layout>
+                </v-container>
             </v-container>
 
-          </v-main>
 
-        </v-content>
+
+
+      <!-- blog-->
+
+          <v-container>
+              <v-layout justify-center row >
+                  <v-flex lg12 md12 sm12 xs12 class="mb-5">
+                      <h2 style="text-align: center">our blog</h2>
+                  </v-flex>
+                  <v-flex lg3 md3 sm10 xs10 v-for="post in posts" :key="post.title" class="mx-2 mb-3">
+                     <blog-card :post="post"></blog-card>
+                  </v-flex>
+              </v-layout>
+          </v-container>
+  </v-main>
+
+
+
+
       </template>
 
       <script>
 
       import product from "../components/Product";
+      import CardLoader from "../components/CardLoader";
+      import BlogCard from "../components/BlogCard";
+      import HomeBox from "../components/HomeBox";
       import {mapGetters} from "vuex";
         export default {
           name: 'home',
-          components:{ product },
+          components:{ product,CardLoader,BlogCard,HomeBox },
           data() {
             return {
               slides: [
@@ -138,6 +180,26 @@
                   text:"Lorem ipsum dolor – glavrida tristique gravida lacus nec dolor suscipit dlavrida.",
                   image:""
                 }
+              ],
+              posts:[
+                  {
+                      title: 'How New Technology E-Commerce Industry Worldwide?',
+                      text:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad mi',
+                      image:'1'
+
+                  },
+                  {
+                      title: 'We Launched Regular Drone Delivery in California',
+                      text:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad mi',
+                      image:'322'
+
+                  },
+                  {
+                      title: 'Google Pay is Now Available in All Outlets',
+                      text:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad mi',
+                      image:'55'
+
+                  },
               ]
 
             }
@@ -145,18 +207,46 @@
 
           },
           computed: {
-            ...mapGetters(['allproducts']),
+            ...mapGetters(['allproducts','filterCategories']),
+              bestProducts(){
+                if(this.allproducts === null){
+                    return
+                }
+                else{
+                     return this.allproducts.filter(p=>{
+                        return p.value >= 4
+                    } )
+                }
+
+              },
+              trend(){
+                  if(this.allproducts === null){
+                      return
+                  }
+                  else{
+                      return this.allproducts.filter(p => {
+                          return (p.value < 4 && p.price > 300)
+                      })
+                  }
+
+
+
+              },
+              loadingStatus(){
+                  return this.$store.getters.loadingStatus
+              }
           },
           methods:{
-            lastProduct(){
 
-            }
           },
           watch: {
             group() {
               this.drawer = false
             }
-          }
+          },
+            mounted() {
+                this.$store.dispatch(('getproducts'))
+            }
 
         }
 

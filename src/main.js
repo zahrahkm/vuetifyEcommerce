@@ -6,9 +6,9 @@ import VueRouter from 'vue-router';
 import Routes from "./Router/routes.js"
 import { store } from "./store.js"
 import "./vee-validate";
-import Axios from 'axios'
+import axios from 'axios'
 
-Vue.prototype.$http = Axios;
+Vue.prototype.$http = axios;
 const token = localStorage.getItem('token')
 if (token) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = token
@@ -25,37 +25,7 @@ Vue.config.productionTip = false
 
 
 
-router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem('jwt') == null) {
-      next({
-        path: '/home',
-        params: { nextUrl: to.fullPath }
-      })
-    } else {
-      let user = JSON.parse(localStorage.getItem('user'))
-      if(to.matched.some(record => record.meta.is_admin)) {
-        if(user.is_admin == 1){
-          next()
-        }
-        else{
-          next({ name: 'home'})
-        }
-      }else {
-        next()
-      }
-    }
-  } else if(to.matched.some(record => record.meta.guest)) {
-    if(localStorage.getItem('jwt') == null){
-      next()
-    }
-    else{
-      next({ name: 'login'})
-    }
-  }else {
-    next()
-  }
-})
+
 
 
 

@@ -10,7 +10,7 @@
 
                     <v-form ref="form" v-model="valid" lazy-validation @submit.prevent="register">
                         <v-col cols="12" md="10" class="mx-auto">
-                            <v-text-field v-model="name" :counter="10" :rules="nameRules" clearable color="purple lighten-1" label="Name" required></v-text-field>
+                            <v-text-field v-model="username" :counter="10" :rules="nameRules" clearable color="purple lighten-1" label="Username" required></v-text-field>
 
                             <v-text-field v-model="email" :rules="emailRules" label="E-mail"  clearable color="purple lighten-1"  required></v-text-field>
 
@@ -80,6 +80,7 @@
 
 
 <script>
+    import axios from 'axios';
     import { ValidationObserver, ValidationProvider } from "vee-validate";
     export default {
         name:'register',
@@ -95,7 +96,7 @@
                 confirmation: "",
                 email: '',
                 checkbox:false,
-                name: '',
+                username: '',
                 nameRules: [
                     v => !!v || 'Name is required',
                     v => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -112,26 +113,40 @@
             }
         },
         methods: {
-            register: function () {
-                let data = {
-                    name: this.name,
-                    email: this.email,
-                    password: this.password,
-                    chechbox: this.chechbox
-                }
 
-                this.$store.dispatch('register', data)
-                    .then(() => this.$router.push('/home'))
-                    .catch(err => console.log(err))
+            register(e) {
+                e.preventDefault();
+                axios
+                    .post(
+                        `http://localhost:3000/register`,
+                        JSON.stringify({
+                            username: this.username,
+                            email: this.email,
+                            password: this.password,
+                            chechbox: this.chechbox
+                        }),
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    )
+                    .then((response) => {
+                        console.log(response);
+                        this.$router.push("/home");
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
             },
+
             validate () {
-                this.$refs.form.validate()
-            }
+            this.$refs.form.validate()
         }
-
-
-
+        }
     }
+
 </script>
 <style>
     .btnstyle{

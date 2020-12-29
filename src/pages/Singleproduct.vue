@@ -1,158 +1,95 @@
 <template>
-  <v-main>
-
-
+  <v-main v-if="product">
       <v-container>
-
           <v-layout row wrap justify-center>
               <v-flex lg12 md12 sm11 xs10>
-                  <v-card>
-                      <v-container>
-                      <v-layout row wrap>
-
-                          <v-flex  xl4 lg4 md12 sm11 xs12 >
-                              <vueper-slides ref="vueperslides1" :touchable="false" fade :autoplay="false" :bullets="false" @slide="$refs.vueperslides2.goToSlide($event.currentSlide.index, { emit: false })" fixed-height="400px">
-                                  <vueper-slide v-for="(img, i) in product.images" :key="i" :image="img.image">{{img.image}}</vueper-slide>
-                              </vueper-slides>
-
-                              <vueper-slides class="no-shadow thumbnails" ref="vueperslides2" @slide="$refs.vueperslides1.goToSlide($event.currentSlide.index, { emit: false })" :visible-slides="slides.length" fixed-height="75px" :bullets="false" :touchable="false" :gap="2.5" :arrows="false">
-                                  <vueper-slide v-for="(img, i) in product.images" :key="i" :image="img.image" @click.native="$refs.vueperslides2.goToSlide(i)">{{img.image}}</vueper-slide>
-                              </vueper-slides>
-                          </v-flex>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                          <v-flex xl8 lg8 md12 sm11 xs12>
-                              <v-card-title>{{product.name}}</v-card-title>
-
-                              <v-card-text >
-                                  <v-row align="center" class="mx-0">
-                                      <v-rating :value="product.value" color="amber" dense half-increments readonly size="14"></v-rating>
-                                      <div class="grey--text ml-4">
-                                          {{product.value}}
-                                      </div>
-                                  </v-row>
-                                  <v-divider class="my-4"></v-divider>
-                                  <ul>
-                                      <li>
-                                          Model Name: {{product.modelName}}
-                                      </li>
-                                      <li>
-                                          Brand: {{product.brand}}
-                                      </li>
-                                      <li>
-                                          Color: {{product.color}}
-                                      </li>
-                                      <li>
-                                          Price: {{product.price}}
-                                      </li>
-                                  </ul>
-
-                                  <v-divider class="my-4"></v-divider>
-                                  About this item <br>
-                                  {{product.about}}
-                                  <v-chip-group
-
-                                          active-class="deep-purple accent-4 white--text"
-                                          column
-                                  >
-                                      <v-chip>5:30PM</v-chip>
-
-                                      <v-chip>7:30PM</v-chip>
-
-                                      <v-chip>8:00PM</v-chip>
-
-                                      <v-chip>9:00PM</v-chip>
-                                  </v-chip-group>
-                                  <v-btn color="accent" large @click="addToCart">add to card</v-btn>
-
-                              </v-card-text>
-                          </v-flex>
-
-                      </v-layout>
-                      </v-container>
-                  </v-card>
+                   <product-info-card :product="product.product" ></product-info-card>
               </v-flex>
           </v-layout>
 
       </v-container>
 
-<v-container>
-    <v-layout row justify-center>
-        <v-flex lg12 md12 sm11 xs11 >
-            <h3>You may also like</h3>
-            <v-slide-group class="mx-3">
-                <v-slide-item v-for="product in allproducts" :key="product.id"  class="mx-2">
-                    <product :product="product" class="mx-2"></product>
-                </v-slide-item>
-            </v-slide-group>
-        </v-flex>
+      <!--similar product-->
+      <v-container>
+          <v-layout row justify-center>
+              <v-flex lg12 md12 sm12 xs12 class="mt-5">
+                  <h3 style="color: #b37cac">OTHER PRODUCTS</h3>
+              </v-flex>
 
+              <v-flex lg12 md12 sm10 xs10 class="my-3 py-5">
+                  <vueper-slides class="no-shadow" fixed-height="370px" :visible-slides="4" slide-multiple :gap="3" :slide-ratio="1 / 4" :dragging-distance="100" :breakpoints="{ 800: { visibleSlides: 2, slideMultiple: 2 } }" >
+                      <vueper-slide v-for="product in otherproduct" :key="product.id" >
+                          <template v-slot:content>
+                              <product :product="product" class="mx-2"></product>
+                          </template>
 
-    </v-layout>
-</v-container>
-
-
-
-
+                      </vueper-slide>
+                  </vueper-slides>
+              </v-flex>
+          </v-layout>
+      </v-container>
   </v-main>
 </template>
 <script>
     import product from "../components/Product";
+    import ProductInfoCard from "../components/ProductInfoCard";
     import { VueperSlides, VueperSlide } from 'vueperslides'
     import 'vueperslides/dist/vueperslides.css';
-
     import  {mapGetters} from 'vuex';
     export default {
         name: 'singleproduct',
         components:{
-            product, VueperSlides, VueperSlide
+            product, VueperSlides, VueperSlide,ProductInfoCard
         },
+        props:['id'],
 
         data() {
             return {
-                product:'',
-                model: null,
-                slides: [
-                    { image: require('@/assets/1.png') },
-                    { image: require('@/assets/11.png') },
-                    { image: require('@/assets/55.jpg') }
-                ]
+
+
             };
         },
         computed:{
-            ...mapGetters(['allproducts'])
+            ...mapGetters(['allproducts','product','otherproduct']),
+
         }
         ,
         methods:{
-            getProduct(){
-               this.product=this.allproducts.find(p => p.id === this.$route.params.product_id)
-            },
-            addToCart(){
-                this.$store.dispatch('addProductToCart',{
-                    product:this.product,
-                    quantity:1
-                })
-                this.$router.replace('/shoppingcart')
-            }
+
         },
         created() {
-            this.getProduct()
+
+            this.unwatch = this.$store.watch(
+                (state, getters) => getters.product,
+                (newValue, oldValue) => {
+                    this.product=product
+                    console.log(`Updating from ${oldValue} to ${newValue}`);
+
+                    // Do whatever makes sense now
+                    if (newValue === 'success') {
+                        this.complex = {
+                            deep: 'some deep object',
+                        };
+                    }
+                }
+            )
+
+
+
+
+
+        }, beforeDestroy() {
+            this.unwatch();
         },
         mounted() {
             this.$store.dispatch('getCartItems')
+            this.$store.dispatch(('getproducts'))
+            this.$store.dispatch(('otherproduct'))
+            this.$store.dispatch("getSingleProduct",this.id);
         }
+
     }
+
 </script>
 <style>
     .thumbnails {
@@ -172,5 +109,9 @@
         box-shadow: 0 0 3px #d9b2d1;
         opacity: 1;
         border-color: #f1d4d8;
+    }
+    #custombtn{
+        color: white;
+        background-color: #b37cac;
     }
 </style>

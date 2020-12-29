@@ -2,7 +2,7 @@ import home from "@/pages/Home.vue";
 import login from "@/pages/Login.vue";
 import register from "@/pages/Register.vue";
 import product from "@/pages/Singleproduct.vue"
-import products from '@/pages/Products.vue';
+import products from '@/pages/ProductsList.vue';
 import MainLayout from "@/layouts/Mainlayout.vue";
 import Authlayout from '@/layouts/Authlayout.vue'
 import shoppingcart from '@/pages/Shoppingcart.vue'
@@ -31,12 +31,13 @@ export default [
                 }
             },
             {
-                path: "product/product_id",
+                path: "products/:id",
                 name: "singleproduct",
                 component: product,
                 meta: {
                     guest: true
-                }
+                },
+                props:true
             }
             ,
             {
