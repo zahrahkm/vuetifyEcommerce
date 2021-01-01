@@ -1,5 +1,7 @@
 # viuetifyapp
 
+<img src="/vuetifyEcommerce/src/assets/image1.png">
+
 ## Project setup
 ```
 yarn install
