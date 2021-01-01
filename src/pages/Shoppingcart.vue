@@ -15,7 +15,7 @@
 
 
 
-                                <shopping-card-item :cart="cart" :increaseQuantity="increaseQuantity" :decreaseQuantity="decreaseQuantity" :removeProductFromCart="removeProductFromCart"></shopping-card-item>
+                                <shopping-card-item :cart="cart" icons="icons" :increaseQuantity="increaseQuantity" :decreaseQuantity="decreaseQuantity" :removeProductFromCart="removeProductFromCart"></shopping-card-item>
 
                            </v-flex>
                         </v-layout>
@@ -91,6 +91,7 @@
             ...mapGetters(['cart','cartItemCount','cartTotalPrice']),
 
         }
+
     }
 </script>
 

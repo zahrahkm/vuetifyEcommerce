@@ -49,7 +49,8 @@
             cart:Array,
             increaseQuantity:Function,
             decreaseQuantity:Function,
-            removeProductFromCart:Function
+            removeProductFromCart:Function,
+            icons:String
         }
     }
 </script>

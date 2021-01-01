@@ -171,7 +171,11 @@
             group() {
                 this.drawer = false
             }
+        },
+        mounted() {
+            this.$store.dispatch('getCartItems')
         }
+
     }
 
 </script>

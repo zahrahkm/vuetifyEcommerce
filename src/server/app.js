@@ -14,7 +14,7 @@ const db = low(adapter);
 
 
 // Set some defaults (required if your JSON file is empty)
-db.defaults( {users: [],allproducts:[]})
+db.defaults( {users: [],allproducts:[],card:[]})
      .write()
 
 app.use(bodyParser.json())
@@ -29,11 +29,8 @@ app.get('/allproducts',(req,res)=>{
 
 
 app.get('/allproducts/:id',(req,res)=>{
-
     const product=db.get('allproducts').find({ id: req.params.id }).value()
-
     if(product){
-
         res.json({product: product|| {}})
 
     }else{
@@ -43,19 +40,40 @@ app.get('/allproducts/:id',(req,res)=>{
 })
 
 
-app.put('/allproducts/:id',(req,res)=>{
-
-    const product=db.get('allproducts').find({ id: req.params.id }).value()
-
-    if(product){
-
-        res.json({product: product|| {}})
-
-    }else{
-        res.send('این محصول وجود ندارد.')
-    }
+app.get('/card',(req,res)=>{
+    res.json(db.get('card').value())
 
 })
+
+app.post('/card',(req,res)=>{
+    let quantity = req.body.quantity;
+    let productid=req.body.product_id
+
+    const product=db.get('allproducts').find({ id: productid }).value()
+
+    db.get('card')
+        .push({ product: product, quantity:quantity ,productid: productid})
+        .write()
+    res.json({quantity,product})
+})
+
+//delete all card items
+app.delete('/card', (req,res)=>{
+
+    let remove= db.get('card').remove().write()
+    console.log(remove)
+    res.json(remove)
+
+})
+
+//delete one card item
+app.delete('/card/:id', (req,res)=>{
+
+    let remove= db.get('card').remove({ productid: req.params.id }).write()
+    res.json(remove)
+
+})
+
 
 
 

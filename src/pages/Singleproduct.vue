@@ -82,7 +82,6 @@
             this.unwatch();
         },
         mounted() {
-            this.$store.dispatch('getCartItems')
             this.$store.dispatch(('getproducts'))
             this.$store.dispatch(('otherproduct'))
             this.$store.dispatch("getSingleProduct",this.id);

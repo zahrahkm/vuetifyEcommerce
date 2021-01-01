@@ -99,23 +99,27 @@ export const store=new Vuex.Store({
 
         addProductToCart({commit},{product,quantity}){
             commit('ADD_TO_CART',{product,quantity})
-            axios.post('http://localhost:3000/cart',{
+            axios.post('http://localhost:3000/card',{
                 product_id :product.id,
                 quantity
             })
         },
 
         getCartItems({commit}){
-            axios.get('http://localhost:3000/cart')
+            axios.get('http://localhost:3000/card')
                 .then(resp=>{
                     commit('SET_CART',resp.data)
                 })
         },
         removeProductFromCart({commit},product){
            commit('REMOVE_PRODUCT_FROM_CART' ,product)
+            axios.delete(`http://localhost:3000/card/${product.id}`);
+
         },
         clearCartItems({commit}){
            commit('CLEAR_CART_ITEMS')
+           axios.delete(`http://localhost:3000/card`);
+
         },
         increaseQuantity({commit},product){
             commit('INCREASE_QUANTITY' ,product)
