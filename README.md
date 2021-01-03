@@ -1,6 +1,6 @@
-# viuetifyapp
+# vuetifyapp
 
-<img src="https://github.com/zahrahkm/vuetifyEcommerce/blob/master/src/assets/image1.png" width="90%">
+<img src="https://github.com/zahrahkm/vuetifyEcommerce/blob/master/src/assets/image1.png" width="50%">
 
 
 ## Project setup
