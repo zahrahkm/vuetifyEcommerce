@@ -33,9 +33,7 @@
                         </v-col>
                     </v-form>
 
-                    <v-card-actions>
 
-                    </v-card-actions>
                 </v-card>
             </v-col>
 
@@ -92,7 +90,7 @@
                         localStorage.setItem("token", token);
                         localStorage.setItem("user", JSON.stringify(user)); //[object object] error without json.stringify
 
-                        this.$store.dispatch("auth", { user, token });
+                        this.$store.dispatch("account/auth", { user, token });
                         this.$router.push("/");
                     })
                     .catch((error) => {

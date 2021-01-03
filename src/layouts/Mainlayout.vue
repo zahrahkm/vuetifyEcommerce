@@ -9,6 +9,7 @@
 <script>
     import Navbar from "@/components/Navbar";
     import MyFooter from "@/components/MyFooter";
+    import { mapGetters } from "vuex";
 
     export default {
         name: "MainLayout",
@@ -21,5 +22,9 @@
             MyFooter,
             Navbar,
         },
+        computed: {
+            ...mapGetters("account", ["user"]),
+            ...mapGetters("product", ["cart"])
+        }
     };
 </script>

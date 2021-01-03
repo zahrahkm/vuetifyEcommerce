@@ -156,13 +156,16 @@
             }
         },
         computed: {
-            ...mapGetters(['cartItemCount', 'isLoggedIn']),
-            ...mapState(['user'])
+
+            ...mapState("account", ["user"]),
+            ...mapGetters("product", ["cartItemCount"]),
+            ...mapGetters("account", ["isLoggedIn"]),
+
 
         },
         methods: {
             logout() {
-                this.$store.dispatch('logout').then(() => {
+                this.$store.dispatch('account/logout').then(() => {
                     this.$router.push("/login");
                 });
             }
@@ -173,7 +176,7 @@
             }
         },
         mounted() {
-            this.$store.dispatch('getCartItems')
+            this.$store.dispatch('product/getCartItems')
         }
 
     }

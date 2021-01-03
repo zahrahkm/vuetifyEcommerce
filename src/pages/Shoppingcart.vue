@@ -72,24 +72,24 @@
 
         methods:{
             removeProductFromCart(product){
-                this.$store.dispatch('removeProductFromCart',product)
+                this.$store.dispatch('product/removeProductFromCart',product)
             },
             clearCartItems(){
-                 this.$store.dispatch(('clearCartItems'))
+                 this.$store.dispatch('product/clearCartItems')
             },
             increaseQuantity(product){
-                    this.$store.dispatch('increaseQuantity', product)
+                    this.$store.dispatch('product/increaseQuantity', product)
                 console.log(product)
             },
             decreaseQuantity(product){
-                this.$store.dispatch('decreaseQuantity',product)
+                this.$store.dispatch('product/decreaseQuantity',product)
             }
 
         },
         computed:{
-
-            ...mapGetters(['cart','cartItemCount','cartTotalPrice']),
-
+            ...mapGetters("product", ["cart"]),
+            ...mapGetters("product", ["cartItemCount"]),
+            ...mapGetters("product", ["cartTotalPrice"]),
         }
 
     }

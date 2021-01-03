@@ -50,7 +50,10 @@
             };
         },
         computed:{
-            ...mapGetters(['allproducts','product','otherproduct']),
+
+            ...mapGetters("product", ["allproducts"]),
+            ...mapGetters("product", ["product"]),
+            ...mapGetters("product", ["otherproduct"]),
 
         }
         ,
@@ -82,9 +85,8 @@
             this.unwatch();
         },
         mounted() {
-            this.$store.dispatch(('getproducts'))
-            this.$store.dispatch(('otherproduct'))
-            this.$store.dispatch("getSingleProduct",this.id);
+            this.$store.dispatch('product/getproducts')
+            this.$store.dispatch("product/getSingleProduct",this.id);
         }
 
     }

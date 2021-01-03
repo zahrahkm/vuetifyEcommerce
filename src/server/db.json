@@ -17,6 +17,12 @@
       "username": "aaaaaa",
       "email": "a@gmail.com",
       "password": "aaaaaaaaaaaa"
+    },
+    {
+      "id": "e4e6d06fc242696bc22ac65d9368b57b",
+      "username": "zahrav",
+      "email": "zahra@gmail.com",
+      "password": "12345678"
     }
   ],
   "allproducts": [

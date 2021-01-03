@@ -2,20 +2,20 @@
   <div>
     <router-view></router-view>
 
-    <router-link to="/home"></router-link> <span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from "vuex";
   export default {
     name: "App",
 
     computed : {
-      isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
+      ...mapGetters("account", ["isLoggedIn"]),
     },
     methods: {
       logout: function () {
-        this.$store.dispatch('logout')
+        this.$store.dispatch('account/logout')
                 .then(() => {
                   this.$router.push('/login')
                 })
@@ -25,7 +25,7 @@
       this.$http.interceptors.response.use(undefined, function (err) {
         return new Promise(function ( ) {
           if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-            this.$store.dispatch('logout')
+            this.$store.dispatch('account/logout')
           }
           throw err;
         });

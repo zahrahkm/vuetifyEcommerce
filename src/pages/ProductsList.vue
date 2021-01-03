@@ -78,7 +78,7 @@
         },
 
         computed: {
-            ...mapGetters(['allproducts']),
+            ...mapGetters("product", ["allproducts"]),
 
             filterCategories(){
                 var category= this.selectCategory;
@@ -100,7 +100,7 @@
                 }
             },
             loadingStatus(){
-                return this.$store.getters.loadingStatus
+                return this.$store.getters["product/loadingStatus"]
             }
 
         },
@@ -114,7 +114,7 @@
 
         },
         mounted() {
-            this.$store.dispatch(('getproducts'))
+            this.$store.dispatch('product/getproducts')
         }
 
 

@@ -4,7 +4,7 @@ import vuetify from './plugins/vuetify';
 import 'vuetify/dist/vuetify.min.css'
 import VueRouter from 'vue-router';
 import Routes from "./Router/routes.js"
-import { store } from "./store.js"
+import store from './store/index.js'
 import "./vee-validate";
 import axios from 'axios'
 
@@ -26,14 +26,9 @@ Vue.config.productionTip = false
 
 
 
-
-
-
-
-
 new Vue({
   vuetify,
   render: h => h(App),
   router,
-  store,
+  store:store,
 }).$mount('#app')

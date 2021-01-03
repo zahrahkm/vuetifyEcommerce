@@ -10,12 +10,12 @@ export const store=new Vuex.Store({
         allproducts: null ,
         selectCategory:'all',
         status: '',
-        token: null ,
-        user : null ,
         cart:[],
         loadingStatus:false,
         product:null,
-        otherproduct:[]
+        otherproduct:[],
+        token: null ,
+        user : null ,
     },
     getters:{
       allproducts :state => {
@@ -55,10 +55,11 @@ export const store=new Vuex.Store({
           })
           return total;
       },
-      isLoggedIn: state => !!state.token,
+
       loadingStatus:state => {
           return state.loadingStatus
-      }
+      },
+        isLoggedIn: state => !!state.token
     },
 
 

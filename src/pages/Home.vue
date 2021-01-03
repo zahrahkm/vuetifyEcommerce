@@ -207,7 +207,9 @@
 
           },
           computed: {
-            ...mapGetters(['allproducts','filterCategories']),
+              ...mapGetters("product", ["allproducts"]),
+              ...mapGetters("product", ["filterCategories"]),
+              ...mapGetters("account", ["loadingStatus"]),
               bestProducts(){
                 if(this.allproducts === null){
                     return
@@ -233,7 +235,7 @@
 
               },
               loadingStatus(){
-                  return this.$store.getters.loadingStatus
+                  return this.$store.getters["product/loadingStatus"]
               }
           },
           methods:{
@@ -245,7 +247,7 @@
             }
           },
             mounted() {
-                this.$store.dispatch(('getproducts'))
+                this.$store.dispatch('product/getproducts')
             }
 
         }
