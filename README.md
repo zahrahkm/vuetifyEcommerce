@@ -1,20 +1,25 @@
 # viuetifyapp
 
-<img src="/vuetifyEcommerce/src/assets/image1.png">
+<img src="https://github.com/zahrahkm/vuetifyEcommerce/blob/master/src/assets/image1.png" width="90%">
+
 
 ## Project setup
 ```
-yarn install
+npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
+npm build
+```
+### Compiles and Run Server
+```
+node app.js
 ```
 
 ### Lints and fixes files
