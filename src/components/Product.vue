@@ -4,12 +4,12 @@
                 <v-img :src="require(`@/assets/${product.name}.png`)" ratio="2.75" class="mx-auto"></v-img>
             </router-link>
             <v-card-title>
-                {{product.name}}
+                <h4>{{product.name}}</h4>
                 <v-spacer></v-spacer>
 
                 <v-row justify="end">
                     <v-rating :value="parseInt(product.value)" color="amber" dense half-increments readonly size="14"></v-rating>
-                    <div class="grey--text small ml-1 mr-2">
+                    <div class="grey--text small ">
                         {{product.value }}
                     </div>
                 </v-row>
