@@ -13,8 +13,9 @@
 
     export default {
         name: "cardLoader",
-        props: ["loopCount"],
-        components: { InstagramLoader }
+        props: ["loopCount","loadingStatus"],
+        components: { InstagramLoader },
+
     };
 </script>
 

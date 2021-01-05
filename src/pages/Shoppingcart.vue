@@ -90,6 +90,7 @@
             ...mapGetters("product", ["cart"]),
             ...mapGetters("product", ["cartItemCount"]),
             ...mapGetters("product", ["cartTotalPrice"]),
+
         }
 
     }

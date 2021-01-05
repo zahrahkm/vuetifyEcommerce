@@ -1,59 +1,15 @@
 <template>
   <v-main>
-    <!--slider -->
-    <v-carousel cycle height="500" hide-delimiter-background show-arrows-on-hover>
-        <v-carousel-item v-for="(slide, i) in slides" :key="i">
-          <v-img height="100%" :src="require(`@/assets/slide/${slide.title}.png`)">
-            <div class="elementor-background-overlay">
-              <div class="elementor-shape elementor-shape-bottom" data-negative="false">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
-                     <path class="elementor-shape-fill" opacity="0.33" d="M473,67.3c-203.9,88.3-263.1-34-320.3,0C66,119.1,0,59.7,0,59.7V0h1000v59.7 c0,0-62.1,26.1-94.9,29.3c-32.8,3.3-62.8-12.3-75.8-22.1C806,49.6,745.3,8.7,694.9,4.7S492.4,59,473,67.3z" /> <path class="elementor-shape-fill" opacity="0.66" d="M734,67.3c-45.5,0-77.2-23.2-129.1-39.1c-28.6-8.7-150.3-10.1-254,39.1 s-91.7-34.4-149.2,0C115.7,118.3,0,39.8,0,39.8V0h1000v36.5c0,0-28.2-18.5-92.1-18.5C810.2,18.1,775.7,67.3,734,67.3z" />
-                     <path class="elementor-shape-fill" d="M766.1,28.9c-200-57.5-266,65.5-395.1,19.5C242,1.8,242,5.4,184.8,20.6C128,35.8,132.3,44.9,89.9,52.5C28.6,63.7,0,0,0,0 h1000c0,0-9.9,40.9-83.6,48.1S829.6,47,766.1,28.9z" />
-                  </svg>
-              </div>
-            </div>
-            <v-row class="fill-height" align="center" justify="center">
-                 <div class="display-3">{{ slide.title }} Slide</div>
-            </v-row>
-          </v-img>
-
-      </v-carousel-item>
-    </v-carousel>
-
+      <!--slider -->
+            <slider :slides="slides"></slider>
 
 
       <!--boxes -->
-            <v-container class="mb-5">
-              <v-layout row>
-                <v-flex lg3 md3 sm6 v-for="box in boxes " :key="box.id" justify-center>
-                    <home-box :box="box"></home-box>
-                </v-flex>
-              </v-layout>
-            </v-container>
-
-
+           <box-section :boxes="boxes"></box-section>
 
 
       <!--best products -->
-        <v-container fluid style="background-color: #fafafa;" class="py-8" >
-            <v-container>
-                <v-layout row wrap>
-                    <v-flex lg12 md12 sm12 xs12 class="my-3">
-                        <h2 style="text-align: center">Best products</h2>
-                    </v-flex>
-
-                    <!-- loading-->
-                    <v-flex lg12 v-if="loadingStatus">
-                        <card-loader :loopCount=4 />
-                    </v-flex>
-                    <!-- endloading-->
-
-                    <v-flex v-else v-for="product in bestProducts " :key="product.id"  class="mt-2 mb-2" lg3 md4 sm6>
-                        <product :product="product"></product>
-                    </v-flex>
-                </v-layout>
-            </v-container>
-        </v-container>
+        <best-product :bestProducts="bestProducts" :loadingStatus="loadingStatus"></best-product>
 
 
       <!--categoriesImage -->
@@ -85,46 +41,12 @@
             </v-container>
 
 
-      <!--products -->
-
-            <v-container fluid class="py-5" style="background-color: #fafafa;">
-                <v-container>
-                     <v-layout row wrap justify-center>
-                  <v-flex lg12 md12 sm12 xs12 class="my-5">
-                      <h2 style="text-align: center">Trend in this month</h2>
-                  </v-flex>
-
-                  <!-- loading-->
-                  <v-flex lg12 v-if="loadingStatus">
-                      <card-loader :loopCount=4 />
-                  </v-flex>
-                  <!-- endloading-->
-
-                <v-flex v-else v-for="product in trend " :key="product.id"  class="mt-2 mb-2" lg3 md4 sm6>
-                  <product :product="product"></product>
-                </v-flex>
-                  <v-flex lg12 md12 sm12 xs12  style="text-align: center" class=" my-4">
-                      <v-btn router to="/products">see more</v-btn>
-                  </v-flex>
-              </v-layout>
-                </v-container>
-            </v-container>
-
-
-
+      <!--trend products -->
+            <trend-product :trend="trend" :loadingStatus="loadingStatus"></trend-product>
 
       <!-- blog-->
+          <blog-section :posts="posts"></blog-section>
 
-          <v-container>
-              <v-layout justify-center row >
-                  <v-flex lg12 md12 sm12 xs12 class="mb-5">
-                      <h2 style="text-align: center">our blog</h2>
-                  </v-flex>
-                  <v-flex lg3 md3 sm10 xs10 v-for="post in posts" :key="post.title" class="mx-2 mb-3">
-                     <blog-card :post="post"></blog-card>
-                  </v-flex>
-              </v-layout>
-          </v-container>
   </v-main>
 
 
@@ -133,15 +55,15 @@
       </template>
 
       <script>
-
-      import product from "../components/Product";
-      import CardLoader from "../components/CardLoader";
-      import BlogCard from "../components/BlogCard";
-      import HomeBox from "../components/HomeBox";
+      import Slider from "../components/Slider";
+      import BlogSection from "../components/BlogSection";
       import {mapGetters} from "vuex";
+      import BestProduct from "../components/BestProduct";
+      import TrendProduct from "../components/TrendProduct";
+      import BoxSection from "../components/BoxSection";
         export default {
           name: 'home',
-          components:{ product,CardLoader,BlogCard,HomeBox },
+          components:{BoxSection, TrendProduct, BestProduct,BlogSection,Slider },
           data() {
             return {
               slides: [

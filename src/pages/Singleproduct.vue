@@ -56,10 +56,7 @@
             ...mapGetters("product", ["otherproduct"]),
 
         }
-        ,
-        methods:{
-
-        },
+       ,
         created() {
 
             this.unwatch = this.$store.watch(

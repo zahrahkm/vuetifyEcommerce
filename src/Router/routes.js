@@ -6,7 +6,6 @@ import products from '@/pages/ProductsList.vue';
 import MainLayout from "@/layouts/Mainlayout.vue";
 import Authlayout from '@/layouts/Authlayout.vue'
 import shoppingcart from '@/pages/Shoppingcart.vue'
-import Admin from '@/pages/Admin'
 
 export default [
     {
@@ -64,16 +63,7 @@ export default [
         component: Authlayout ,
         children: [
             {name: 'login', path: '/login', component:login},
-            {name: 'register', path: '/register', component:register},
-            {
-                path: '/admin',
-                name: 'admin',
-                component: Admin,
-                meta: {
-                    requiresAuth: true,
-                    is_admin: true
-                }
-            }
+            {name: 'register', path: '/register', component:register}
 
         ]
     }
