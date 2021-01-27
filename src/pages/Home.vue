@@ -13,32 +13,7 @@
 
 
       <!--categoriesImage -->
-            <v-container class="py-12">
-              <v-layout row justify-center>
-                  <v-flex lg6 md6 sm6 xs11>
-                      <v-layout column justify-center >
-                          <v-flex lg6 xs4>
-                              <v-img :src="require(`@/assets/1.jpg`)" height="270" class="mx-3 mb-5"></v-img>
-                          </v-flex>
-                          <v-flex lg6 xs4>
-                              <v-img :src="require(`@/assets/322.jpg`)" height="160" class="mx-3 mb-5"></v-img>
-                          </v-flex>
-                      </v-layout>
-                  </v-flex>
-                <v-flex lg6 md6 sm6 xs11>
-                  <v-layout column justify-center>
-                    <v-flex lg6 xs4>
-                        <v-img :src="require(`@/assets/55.jpg`)" height="200" class="mx-3 mb-5"></v-img>
-
-                    </v-flex>
-                    <v-flex lg6 xs4>
-                        <v-img :src="require(`@/assets/11.png`)" height="230" class="mx-3"></v-img>
-                    </v-flex>
-                  </v-layout>
-                </v-flex>
-
-              </v-layout>
-            </v-container>
+        <home-category-img></home-category-img>
 
 
       <!--trend products -->
@@ -61,9 +36,10 @@
       import BestProduct from "../components/BestProduct";
       import TrendProduct from "../components/TrendProduct";
       import BoxSection from "../components/BoxSection";
+      import HomeCategoryImg from "../components/HomeCategoryImg";
         export default {
           name: 'home',
-          components:{BoxSection, TrendProduct, BestProduct,BlogSection,Slider },
+          components:{BoxSection, TrendProduct, BestProduct,BlogSection,Slider ,HomeCategoryImg},
           data() {
             return {
               slides: [

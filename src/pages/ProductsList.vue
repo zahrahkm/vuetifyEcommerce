@@ -9,7 +9,8 @@
             <card-loader :loopCount=8 />
             </v-flex>
             <!-- sidebar-->
-            <v-flex xs12 md3 lg3 class="hidden-sm-and-down " v-else>
+
+            <v-flex xs12 md3 lg3 class="hidden-sm-and-down " >
                 <v-card class=" mt-5 mb-5 mr-1" >
                     <v-card-title>category</v-card-title>
                     <v-divider></v-divider>
@@ -27,8 +28,6 @@
 
                     <v-divider></v-divider>
                     <sort-by :decending="decending" :ascending="ascending"></sort-by>
-
-
 
                 </v-card>
 
@@ -61,9 +60,10 @@
     import CardLoader from "@/components/CardLoader";
     import SortBy from "@/components/SortBy";
 
+
     export default {
         name: "products",
-        components: {product,CardLoader,SortBy },
+        components: {product,CardLoader ,SortBy},
 
         data() {
             return {
@@ -105,14 +105,14 @@
 
         },
         methods:{
-            ascending(){
-                this.allproducts.sort((a,b)=>a.price> b.price? 1:-1)
-            },
-            decending(){
-                this.allproducts.sort((a,b)=>a.price < b.price? 1:-1)
-            }
-
+        ascending(){
+            this.allproducts.sort((a,b)=>a.price> b.price? 1:-1)
         },
+        decending(){
+            this.allproducts.sort((a,b)=>a.price < b.price? 1:-1)
+        }
+        },
+
         mounted() {
             this.$store.dispatch('product/getproducts')
         }

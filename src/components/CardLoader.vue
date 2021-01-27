@@ -15,7 +15,6 @@
         name: "cardLoader",
         props: ["loopCount","loadingStatus"],
         components: { InstagramLoader },
-
     };
 </script>
 

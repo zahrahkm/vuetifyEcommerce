@@ -248,32 +248,32 @@
   "card": [
     {
       "product": {
-        "id": "5",
-        "name": "ipad",
-        "price": "1035.93",
-        "value": "5",
-        "about": "12.9-inch edge-to-edge Liquid Retina display with ProMotion, True Tone, and P3 wide color A12Z Bionic chip with Neural Engine 12MP Wide camera, 10MP Ultra Wide camera, and LiDAR Scanner 7MP TrueDepth front camera Face ID for secure authentication and Apple Pay Four speaker audio and five studio-quality microphones 802.11ax Wi-Fi 6 Up to 10 hours of battery life USB-C connector for charging and accessories Support for Magic Keyboard, Smart Keyboard Folio, and Apple Pencil",
+        "id": "4",
+        "name": "iphone",
+        "price": "679.32",
+        "value": "3.99",
+        "about": "OFFER INCLUDES: An Apple iPhone and a wireless plan with unlimited data/talk/text WIRELESS PLAN: Unlimited talk, text, and data with mobile hotspot, nationwide coverage, and international reach. No long-term contract required. PROGRAM DETAILS: When you add this offer to cart, it will reflect 3 items: the iPhone, SIM kit, and carrier subscription 5.8-inch Super Retina XDR OLED display, water and dust resistant, with Face ID Triple-camera system with 12MP Ultra Wide camera, 12MP TrueDepth front camera with Portrait mode Fast-charge and wireless charging capable",
         "brand": "Apple",
-        "modelName": "Apple iPad Pro (12.9-inch, Wi-Fi, 256GB) - Silver (4th Generation)",
-        "color": "Silver",
+        "modelName": "Apple iPhone 11 Pro (64GB, Midnight Green)",
+        "color": "Midnight Green",
         "images": [
           {
-            "image": "ipad/ipad.png"
+            "image": "iphone/iphone.png"
           },
           {
-            "image": "ipad/ipad2.png"
+            "image": "iphone/iphone2.png"
           },
           {
-            "image": "ipad/ipad3.png"
+            "image": "iphone/iphone3.png"
           },
           {
-            "image": "ipad/ipad4.png"
+            "image": "iphone/iphone4.png"
           }
         ],
-        "category": "tablet"
+        "category": "mobile"
       },
       "quantity": 1,
-      "productid": "5"
+      "productid": "4"
     }
   ]
 }

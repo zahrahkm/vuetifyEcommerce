@@ -2,18 +2,13 @@
     <v-main>
         <v-container v-if="cartItemCount > 0 ">
             <v-layout row wrap justify-center>
-
                 <v-flex xs12 md8 lg8>
                     <v-card class="mt-5 mb-5">
                        <v-container>
                             <v-layout row justify-center>
                                 <v-flex lg12 md4 sm5 xs12 class="mb-5" justify-space-around>
                                 <h3 style="text-align: center" class="mb-8">Shopping cart<v-badge :content="cartItemCount" color="pink darken-2" class="ml-3"></v-badge></h3>
-
                                     <v-divider></v-divider>
-
-
-
 
                                 <shopping-card-item :cart="cart" icons="icons" :increaseQuantity="increaseQuantity" :decreaseQuantity="decreaseQuantity" :removeProductFromCart="removeProductFromCart"></shopping-card-item>
 
